@@ -30,14 +30,17 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 
+	make -C lib/my
 	 $(CC) $(OBJS) -o $(NAME) $(CFLAGS)
 
 clean:
 
+	make -C lib/my clean
 	$(RM) $(OBJS)
 
 fclean: clean
 
+	make -C lib/my fclean
 	$(RM) $(NAME)
 
 re: fclean all
