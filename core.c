@@ -23,15 +23,20 @@ void	execute_binary(char *str, int fd[2], char **envp, int waiter)
 		dup2(fd[0], 0);
 		dup2(fd[1], 1);
 		execve(argv[0], argv, envp);
-	} else
+	} else {
 		if (fd[0] > 2)
 			close(fd[0]);
 		if (fd[1] > 2)
 			close(fd[1]);
 		wait(&status);
-	if (WIFSIGNALED(status) && WTERMSIG(status) == 11)
-		my_printf("Segmentation fault\n");
-
+	}
+	if (WIFSIGNALED(status)) {
+		if (WTERMSIG(status) == SIGSEGV)
+			my_printf("Segmentation fault");
+		if (WTERMSIG(status) == SIGFPE)
+			my_printf("Floating exception");
+		my_printf(WCOREDUMP(status) ? " (core dumped)\n" : "\n");
+	}
 }
 
 int	check_builtins(char *com, char ***envp)
