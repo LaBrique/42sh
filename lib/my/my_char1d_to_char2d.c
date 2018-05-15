@@ -6,7 +6,7 @@
 */
 
 #include "../../include/my.h"
-/*
+
 int	wordcounter(char *string, char *breaker)
 {
 	int count = 1;
@@ -49,7 +49,7 @@ char	**my_char1d_to_char2d(char *string, char *breaker)
 		fill_2dchar(string, dim2_char[i], breaker, &j);
 	return (dim2_char);
 }
-*/
+/*
 
 int	is_separator(const char c, const char *separators)
 {
@@ -139,3 +139,4 @@ char	**my_char1d_to_char2d(char *str, char *separators)
 	array[i] = NULL;
 	return (array);
 }
+*/
