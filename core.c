@@ -84,6 +84,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
+	while (1);
 	if (!envp[0]) {
 		envp = malloc(sizeof(char *) * 2);
 		envp[0] = my_strcat(NULL, D_P, 0);
