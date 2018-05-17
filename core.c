@@ -14,6 +14,17 @@ const builtin_t builtins[] = {
 	{"unsetenv", &unsetenv_sh}
 };
 
+void	get_sig_status(int status)
+{
+	if (WIFSIGNALED(status)) {
+		if (WTERMSIG(status) == SIGSEGV)
+			my_printf("Segmentation fault");
+		if (WTERMSIG(status) == SIGFPE)
+			my_printf("Floating exception");
+		my_printf(WCOREDUMP(status) ? " (core dumped)\n" : "\n");
+	}
+}
+
 void	execute_binary(char *str, int fd[2], char **envp, int waiter)
 {
 	int status;
@@ -28,15 +39,10 @@ void	execute_binary(char *str, int fd[2], char **envp, int waiter)
 			close(fd[0]);
 		if (fd[1] > 2)
 			close(fd[1]);
-		wait(&status);
+		if (waiter)
+			wait(&status);
 	}
-	if (WIFSIGNALED(status)) {
-		if (WTERMSIG(status) == SIGSEGV)
-			my_printf("Segmentation fault");
-		if (WTERMSIG(status) == SIGFPE)
-			my_printf("Floating exception");
-		my_printf(WCOREDUMP(status) ? " (core dumped)\n" : "\n");
-	}
+	get_sig_status(status);
 }
 
 int	check_builtins(char *com, char ***envp)
@@ -82,19 +88,5 @@ int	shell_prompt(char ***envp)
 	if (!tree)
 		return (0);
 	execute_commands(tree, (int [2]){0, 1}, envp, 1);
-	return (0);
-}
-
-int	main(int argc, char **argv, char **envp)
-{
-	(void)argc;
-	(void)argv;
-	if (!envp[0]) {
-		envp = malloc(sizeof(char *) * 2);
-		envp[0] = my_strcat(NULL, D_P, 0);
-		envp[1] = NULL;
-	}
-	signal(SIGINT, int_ign);
-	while (shell_prompt(&envp) == 0);
 	return (0);
 }

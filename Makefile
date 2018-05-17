@@ -11,7 +11,8 @@ CC	= gcc
 
 RM	= rm -f
 
-SRCS	=	core.c			\
+SRCS	=	main.c			\
+		core.c			\
 		miscellaneous.c		\
 		change_directory.c	\
 		environment.c		\

@@ -51,26 +51,31 @@ int	get_output_fd(node_t *tree, int old)
 	return (1);
 }
 
-void	execute_commands(node_t *tree, int fd[2], char ***envp, int waiter)
+void	get_fd(int fd[2], int fd2[2], node_t *tree)
 {
-	int fd2[2];
-
-	if (!tree)
-		return;
-	if (tree->str) {
-		if (check_builtins(tree->str, envp) != 0);
-		else
-			execute_binary(tree->str, fd, *envp, waiter);
-	}
 	if (tree->opt) {
 		fd[0] = get_input_fd(tree, fd[0]);
 		fd[1] = get_output_fd(tree, fd[1]);
 		fd2[0] = tree->opt == 2 ? fd[1] - 1 : fd[1];
 		fd2[1] = 1;
 	}
-	waiter = tree->opt == 1 ? 1 : 0;
+}
+
+void	execute_commands(node_t *tree, int fd[2], char ***envp, int waiter)
+{
+	int fd2[2];
+
+	if (!tree)
+		return;
+	waiter = tree->opt == 2 ? 0 : waiter;
+	if (tree->str) {
+		if (check_builtins(tree->str, envp));
+		else
+			execute_binary(tree->str, fd, *envp, waiter);
+	}
+	get_fd(fd, fd2, tree);
 	if (tree->left)
 		execute_commands(tree->left, fd, envp, waiter);
 	if (tree->right && tree->opt < 3)
-		execute_commands(tree->right, fd2, envp, waiter);
+		execute_commands(tree->right, fd2, envp, waiter + 1);
 }
