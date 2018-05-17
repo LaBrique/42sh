@@ -39,24 +39,28 @@ void	special_cd_sh(char *path, char **history, int *entry, char *home)
 	}
 }
 
-char	**cd(char *path, char **envp)
+char	**cd(char **path, char **envp)
 {
 	char *home = get_env("HOME", envp);
 	static char **history = NULL;
 	static int entry = 0;
 
-	check_tilde(path);
+	if (argcounter(path) > 2) {
+		my_printf("cd: Too many arguments.\n");
+		return (envp);
+	}
+	check_tilde(path[1]);
 	if (history == NULL) {
 		history = char_dim2_malloc(40, 502);
 		history[entry] = getcwd(history[entry], 40);
 		entry++;
 	}
-	if ((path[0] == '~' || path[0] == '-') && path[1] == 0) {
-		special_cd_sh(path, history, &entry, home);
+	if ((path[1][0] == '~' || path[1][0] == '-') && path[1][1] == 0) {
+		special_cd_sh(path[1], history, &entry, home);
 		return (envp);
 	}
-	if (chdir(path) == -1)
-		my_printf("cd: \"%s\" no such directory.\n", path);
+	if (chdir(path[1]) == -1)
+		my_printf("cd: \"%s\" no such directory.\n", path[1]);
 	append_history(history, &entry);
 	return (envp);
 }

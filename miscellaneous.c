@@ -40,19 +40,19 @@ char	*get_prompt(void)
 	return ("~");
 }
 
-char	**exit_sh(char *arg, char **envp)
+char	**exit_sh(char **arg, char **envp)
 {
-	for (int i = 1; arg[i]; i++) {
-		if (arg[i + 1] && arg[i] == ' ') {
+	for (int i = 1; arg[1][i]; i++) {
+		if (arg[1][i + 1] && arg[1][i] == ' ') {
 			my_printf("exit: Expression Syntax.\n");
 			return (envp);
 		}
 	}
-	if (my_str_isnum(arg) == 0) {
+	if (my_str_isnum(arg[1]) == 0) {
 		my_printf("exit: Badly formed number.\n");
 		return (envp);
 	}
-	exit(my_getnbr(arg));
+	exit(my_getnbr(arg[1]));
 }
 
 void	check_existence(void)

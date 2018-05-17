@@ -22,7 +22,7 @@ typedef struct node_s {
 
 typedef struct builtin_s {
 	char *str;
-	char **(*ptr)(char *, char **);
+	char **(*ptr)(char **, char **);
 } builtin_t;
 
 #define D_P "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
@@ -48,14 +48,14 @@ char	*get_prompt(void);
 void	check_tilde(char *path);
 void	append_history(char **history, int *i);
 void	special_cd_sh(char *path, char **history, int *entry, char *home);
-char	**cd(char *path, char **envp);
-char	**exit_sh(char *arg, char **envp);
+char	**cd(char **path, char **envp);
+char	**exit_sh(char **arg, char **envp);
 char	**env_sh(char **envp);
 int	get_env_position(char *name, char **envp);
 char	**envp_remove(char *name, char **envp);
-char	**unsetenv_sh(char *arg, char **envp);
+char	**unsetenv_sh(char **arg, char **envp);
 char	**envp_append(char *name, char *value, char **envp);
-char	**setenv_sh(char *arg, char **envp);
+char	**setenv_sh(char **arg, char **envp);
 int	check_builtins(char *com, char ***envp);
 void	check_existence(void);
 int	shell_prompt(char ***envp);

@@ -70,7 +70,7 @@ char	**get_command(char *command, char **envp)
 	if (!path)
 		envp_append("PATH", D_P, envp);
 	paths = my_char1d_to_char2d(path, ":");
-	bin_argv = my_char1d_to_char2d(command, " ");
+	bin_argv = my_char1d_to_char2d(command, " \t");
 	bin_path = get_full_path(paths, bin_argv[0]);
 	if (bin_path == NULL)
 		return (NULL);

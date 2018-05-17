@@ -41,9 +41,9 @@ void	execute_binary(char *str, int fd[2], char **envp, int waiter)
 			close(fd[0]);
 		if (fd[1] > 2)
 			close(fd[1]);
-		if (waiter)
-			wait(&status);
 	}
+	if (waiter)
+		wait(&status);
 	get_sig_status(status);
 }
 
@@ -53,8 +53,7 @@ int	check_builtins(char *com, char ***envp)
 
 	for (int i = 0; i < 4; i++) {
 		if (my_strcmp(*command, builtins[i].str)) {
-			*envp = (*builtins[i].ptr)(com +
-			my_strlen(builtins[i].str) + 1, *envp);
+			*envp = (*builtins[i].ptr)(command, *envp);
 			free_2d(command, argcounter(command));
 			return (1);
 		}
@@ -89,6 +88,7 @@ int	shell_prompt(char ***envp)
 	tree = parse_command(my_char1d_to_char2d(buffer, ";"), *envp);
 	if (!tree)
 		return (0);
+	print_tree(tree);
 	execute_commands(tree, (int [2]){0, 1}, envp, 1);
 	return (0);
 }

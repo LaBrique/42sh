@@ -77,5 +77,5 @@ void	execute_commands(node_t *tree, int fd[2], char ***envp, int waiter)
 	if (tree->left)
 		execute_commands(tree->left, fd, envp, waiter);
 	if (tree->right && tree->opt < 3)
-		execute_commands(tree->right, fd2, envp, waiter + 1);
+		execute_commands(tree->right, fd2, envp, 1);
 }

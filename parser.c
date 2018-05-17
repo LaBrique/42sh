@@ -27,20 +27,20 @@ node_t	*create_node(char *str)
 	node_t *new = malloc(sizeof(*new));
 	char **blocks = my_char1d_to_char2d(str, "|<>");
 
-	str += str[0] == ' ' ? 1 : 0;
-	for (int i = 0; blocks[i]; i++)
-		blocks[i] += blocks[i][0] == ' ' ? 1 : 0;
+	// str += str[0] == ' ' ? 1 : 0;
+	// for (int i = 0; blocks[i]; i++)
+	// 	blocks[i] += blocks[i][0] == ' ' ? 1 : 0;
 	new->opt = get_opt(str);
 	new->str = new->opt == -1 ? *blocks : NULL;
-	if (new->str) {
-	if (new->str[my_strlen(new->str) - 1] == ' ')
-		new->str[my_strlen(new->str) - 1] = 0;
-	}
+	// if (new->str) {
+	// if (new->str[my_strlen(new->str) - 1] == ' ')
+	// 	new->str[my_strlen(new->str) - 1] = 0;
+	// }
 	if (new->opt == -1) {
 		new->left = NULL;
 		new->right = NULL;
 	} else {
-		new->right = create_node(str + my_strlen(*blocks) + 2);
+		new->right = create_node(str + my_strlen(*blocks) + 2);        /*check double separator*/
 		new->left = create_node(blocks[0]);
 	}
 	return (new);

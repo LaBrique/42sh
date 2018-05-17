@@ -38,10 +38,9 @@ char	**envp_remove(char *name, char **envp)
 	return (nenvp);
 }
 
-char	**unsetenv_sh(char *arg, char **envp)
+char	**unsetenv_sh(char **argv, char **envp)
 {
-	char **argv = my_char1d_to_char2d(arg, " ");
-	int argc = argcounter(argv);
+	int argc = argcounter(++argv);
 
 	if (argc == 1 && (argv[0][0] == 0 || argv[0][0] == ' ')) {
 		my_printf("unsetenv: Too few arguments.\n");

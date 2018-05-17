@@ -26,10 +26,9 @@ char	**envp_append(char *name, char *value, char **envp)
 	return (nenvp);
 }
 
-char	**setenv_sh(char *arg, char **envp)
+char	**setenv_sh(char **argv, char **envp)
 {
-	char **argv = my_char1d_to_char2d(arg, " ");
-	int argc = argcounter(argv);
+	int argc = argcounter(++argv);
 
 	if (argc == 1 && (argv[0][0] == 0 || argv[0][0] == ' '))
 		return (env_sh(envp));
