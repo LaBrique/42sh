@@ -49,7 +49,7 @@ void	execute_binary(char *str, int fd[2], char **envp, int waiter)
 
 int	check_builtins(char *com, char ***envp)
 {
-	char **command = my_char1d_to_char2d(com, " ");
+	char **command = my_char1d_to_char2d(com, " \t");
 
 	for (int i = 0; i < 4; i++) {
 		if (my_strcmp(*command, builtins[i].str)) {
