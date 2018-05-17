@@ -40,7 +40,7 @@ node_t	*create_node(char *str)
 		new->left = NULL;
 		new->right = NULL;
 	} else {
-		new->right = create_node(str + my_strlen(*blocks) + 2);
+		new->right = create_node(str + my_strlen(*blocks) + 1);
 		new->left = create_node(blocks[0]);
 	}
 	return (new);
