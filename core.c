@@ -42,8 +42,7 @@ void	execute_binary(char *str, int fd[2], char **envp, int waiter)
 		if (fd[1] > 2)
 			close(fd[1]);
 	}
-	if (waiter)
-		wait(&status);
+	while (waiter && wait(&status) > 0);
 	get_sig_status(status);
 }
 

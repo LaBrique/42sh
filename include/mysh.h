@@ -45,7 +45,7 @@ char	**get_command(char *command, char **envp);
 int	argcounter(char **argv);
 void	execute_binary(char *str, int fd[2], char **envp, int waiter);
 char	*get_prompt(void);
-void	check_tilde(char *path);
+char	*check_tilde(char *path);
 void	append_history(char **history, int *i);
 void	special_cd_sh(char *path, char **history, int *entry, char *home);
 char	**cd(char **path, char **envp);

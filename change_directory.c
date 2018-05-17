@@ -7,12 +7,15 @@
 
 #include "mysh.h"
 
-void	check_tilde(char *path)
+char	*check_tilde(char *path)
 {
-	if (path[0] == 0) {
+	if (!path)
+		path = char_dim1_malloc(2);
+	if (!path[0]) {
 		path[0] = '~';
 		path[1] = 0;
 	}
+	return (path);
 }
 
 void	append_history(char **history, int *i)
@@ -49,7 +52,7 @@ char	**cd(char **path, char **envp)
 		my_printf("cd: Too many arguments.\n");
 		return (envp);
 	}
-	check_tilde(path[1]);
+	path[1] = check_tilde(path[1]);
 	if (history == NULL) {
 		history = char_dim2_malloc(40, 502);
 		history[entry] = getcwd(history[entry], 40);
