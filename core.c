@@ -88,7 +88,6 @@ int	shell_prompt(char ***envp)
 	tree = parse_command(my_char1d_to_char2d(buffer, ";"), *envp);
 	if (!tree)
 		return (0);
-	print_tree(tree);
 	execute_commands(tree, (int [2]){0, 1}, envp, 1);
 	return (0);
 }
