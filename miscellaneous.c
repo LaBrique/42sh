@@ -42,6 +42,8 @@ char	*get_prompt(void)
 
 char	**exit_sh(char **arg, char **envp)
 {
+	if (argcounter(arg) < 2)
+		exit(0);
 	for (int i = 1; arg[1][i]; i++) {
 		if (arg[1][i + 1] && arg[1][i] == ' ') {
 			my_printf("exit: Expression Syntax.\n");
