@@ -30,6 +30,8 @@ void	execute_binary(char *str, int fd[2], char **envp, int waiter)
 	int status;
 	char **argv = get_command(str, envp);
 
+	if (!argv)
+		return;
 	if (!fork()) {
 		dup2(fd[0], 0);
 		dup2(fd[1], 1);
