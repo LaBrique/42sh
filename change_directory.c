@@ -63,7 +63,7 @@ char	**cd(char **path, char **envp)
 		return (envp);
 	}
 	if (chdir(path[1]) == -1)
-		my_printf("cd: \"%s\" no such directory.\n", path[1]);
+		my_printf("%s: No such directory.\n", path[1]);
 	append_history(history, &entry);
 	return (envp);
 }
