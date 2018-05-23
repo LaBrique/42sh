@@ -24,18 +24,19 @@ short	get_opt(char *str)
 
 node_t	*create_node(char *str)
 {
-	printf("str: %s\n", str);
 	node_t *new = malloc(sizeof(*new));
 	char **blocks = my_char1d_to_char2d(str, "|<>");
 
 	new->opt = get_opt(str);
+	printf("opt: %d\nstr: %s\n*blocks: %p\n", new->opt, str, *blocks);
 	new->str = new->opt == -1 ? *blocks : NULL;
+	printf("new str: %s\n", new->str);
 	if (new->opt == -1) {
 		new->left = NULL;
 		new->right = NULL;
 	} else {
-		printf("opt: %d\n", new->opt);
-		new->right = create_node(str + my_strlen(*blocks) + ((new->opt == 4 || new->opt == 6) ? 2 : 1/* : 1*/));
+		new->right = create_node(str + my_strlen(*blocks) +
+		((new->opt == 4 || new->opt == 6) ? 2 : 1));
 		new->left = create_node(blocks[0]);
 	}
 	return (new);

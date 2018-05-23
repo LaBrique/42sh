@@ -6,7 +6,7 @@
 */
 
 #include "../../include/my.h"
-/*
+
 int	wordcounter(char *string, char *breaker)
 {
 	int count = 1;
@@ -45,12 +45,14 @@ char	**my_char1d_to_char2d(char *string, char *breaker)
 	int wordcount = wordcounter(string, breaker);
 	char **dim2_char = char_dim2_malloc(my_strlen(string), wordcount);
 
+	if (!string || !dim2_char || !my_strlen(string))
+		return (NULL);
 	for (int i = 0, j = 0; i != wordcount; i++)
 		fill_2dchar(string, dim2_char[i], breaker, &j);
 	return (dim2_char);
 }
-*/
 
+/*
 int	is_separator(const char c, const char *separators)
 {
 	int i = 0;
@@ -139,3 +141,4 @@ char	**my_char1d_to_char2d(char *str, char *separators)
 	array[i] = NULL;
 	return (array);
 }
+*/

@@ -29,10 +29,12 @@ int	cd_errors(char *path)
 	return (0);
 }
 
-void	special_cd_sh(char *path, char *home, char *old)
+void	special_cd_sh(char *path, char **envp)
 {
+	char *home = get_env("HOME", envp);
+
 	if (path[0] == '-')
-		chdir(old);
+		chdir(get_env("OLDPWD", envp));
 	else if (!home)
 		my_printf("No $home variable set.\n");
 	else
@@ -41,24 +43,22 @@ void	special_cd_sh(char *path, char *home, char *old)
 
 char	**cd(char **path, char **envp)
 {
-	char *home = get_env("HOME", envp);
-	char *old = get_env("OLDPWD", envp);
 	char *current = getcwd(NULL, 255);
 
-	if (!old)
-		envp = envp_append("OLDPWD", "\0", envp);
 	if (argcounter(path) > 2) {
 		my_printf("cd: Too many arguments.\n");
 		return (envp);
 	}
 	path[1] = check_tilde(path[1]);
 	if ((path[1][0] == '~' || path[1][0] == '-') && path[1][1] == 0) {
-		special_cd_sh(path[1], home, old);
-		return (envp);
+		special_cd_sh(path[1], envp);
+		return (setenv_sh(my_char1d_to_char2d(my_strcat("setenv OLDPWD "
+		, current, 0), " "), envp));
 	}
-	if (!cd_errors(path[1]))
-		envp = setenv_sh(my_char1d_to_char2d(my_strcat("setenv OLDPWD ",
-		current, 0), " "), envp);
-	chdir(path[1]);
+	if (!cd_errors(path[1])) {
+		chdir(path[1]);
+		return (setenv_sh(my_char1d_to_char2d(my_strcat("setenv OLDPWD "
+		, current, 0), " "), envp));
+	}
 	return (envp);
 }
