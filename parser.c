@@ -40,7 +40,8 @@ node_t	*create_node(char *str)
 		new->left = NULL;
 		new->right = NULL;
 	} else {
-		new->right = create_node(str + my_strlen(*blocks) + 2);        /*check double separator*/
+		new->right = create_node(str + my_strlen(*blocks) + /*new->opt ==
+		4 || new->opt == 6 ?*/ 2/* : 1*/);        /*check double separator*/
 		new->left = create_node(blocks[0]);
 	}
 	return (new);
