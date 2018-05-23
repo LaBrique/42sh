@@ -128,7 +128,7 @@ char	**my_char1d_to_char2d(char *str, char *separators)
 	int nb_words = count_words(str, separators);
 	char **array = malloc((nb_words + 1) * sizeof(char*));
 
-	if (array == NULL)
+	if (array == NULL || !str || !my_strlen(str))
 		return (NULL);
 	while (++i < nb_words) {
 		array[i] = malloc(word_size(str, separators, i) * sizeof(char));

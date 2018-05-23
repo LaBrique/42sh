@@ -24,24 +24,18 @@ short	get_opt(char *str)
 
 node_t	*create_node(char *str)
 {
+	printf("str: %s\n", str);
 	node_t *new = malloc(sizeof(*new));
 	char **blocks = my_char1d_to_char2d(str, "|<>");
 
-	// str += str[0] == ' ' ? 1 : 0;
-	// for (int i = 0; blocks[i]; i++)
-	// 	blocks[i] += blocks[i][0] == ' ' ? 1 : 0;
 	new->opt = get_opt(str);
 	new->str = new->opt == -1 ? *blocks : NULL;
-	// if (new->str) {
-	// if (new->str[my_strlen(new->str) - 1] == ' ')
-	// 	new->str[my_strlen(new->str) - 1] = 0;
-	// }
 	if (new->opt == -1) {
 		new->left = NULL;
 		new->right = NULL;
 	} else {
-		new->right = create_node(str + my_strlen(*blocks) + /*new->opt ==
-		4 || new->opt == 6 ?*/ 2/* : 1*/);        /*check double separator*/
+		printf("opt: %d\n", new->opt);
+		new->right = create_node(str + my_strlen(*blocks) + ((new->opt == 4 || new->opt == 6) ? 2 : 1/* : 1*/));
 		new->left = create_node(blocks[0]);
 	}
 	return (new);
@@ -52,6 +46,8 @@ node_t	*parse_command(char **blocks, char **envp)
 	node_t *tree = malloc(sizeof(*tree));
 	int size = argcounter(blocks);
 
+	if (!blocks)
+		return (NULL);
 	tree->opt = size > 1 ? 1 : -1;
 	tree->str = NULL;
 	if (tree->opt == -1) {
