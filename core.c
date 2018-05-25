@@ -23,7 +23,7 @@ void	get_sig_status(int *status)
 			sig = my_printf("Segmentation fault");
 		if (WTERMSIG(status) == SIGFPE)
 			sig = my_printf("Floating exception");
-		my_printf(WCOREDUMP(status) && sig ? " (core dumped)\n" : "\n");
+		my_printf((WCOREDUMP(status) && sig != 0) ? " (core dumped)\n" : "\n");
 	}
 }
 
