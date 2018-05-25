@@ -14,14 +14,16 @@ const builtin_t builtins[] = {
 	{"unsetenv", &unsetenv_sh}
 };
 
-void	get_sig_status(int status)
+void	get_sig_status(int *status)
 {
+	int sig = 0;
+
 	if (WIFSIGNALED(status)) {
 		if (WTERMSIG(status) == SIGSEGV)
-			my_printf("Segmentation fault");
+			sig = my_printf("Segmentation fault");
 		if (WTERMSIG(status) == SIGFPE)
-			my_printf("Floating exception");
-		my_printf(WCOREDUMP(status) ? " (core dumped)\n" : "\n");
+			sig = my_printf("Floating exception");
+		my_printf(WCOREDUMP(status) && sig ? " (core dumped)\n" : "\n");
 	}
 }
 
@@ -43,7 +45,7 @@ void	execute_binary(char *str, int fd[2], char **envp, int waiter)
 			close(fd[1]);
 	}
 	while (waiter && wait(&status) > 0);
-	get_sig_status(status);
+	get_sig_status(&status);
 }
 
 int	check_builtins(char *com, char ***envp)
@@ -61,32 +63,31 @@ int	check_builtins(char *com, char ***envp)
 	return (0);
 }
 
-int	get_input(char *buffer)
+int	get_input(char **buffer)
 {
 	int eof = 0;
 
 	if (isatty(0))
 		my_printf("\033[1;31m%s\033[0m> ", get_prompt());
-	eof = read(0, buffer, 255);
+	eof = read(0, *buffer, 255);
 	if (eof == 0 && isatty(0))
 		return (my_printf("exit\n"));
 	else if (eof == 0)
 		return (1);
-	cut_buffer(buffer);
-	buffer = remove_separators(buffer, " \t", ";><|");
+	cut_buffer(*buffer);
+	*buffer = remove_separators(*buffer, " \t", ";><|");
 	return (0);
 }
 
 int	shell_prompt(char ***envp)
 {
-	char buffer[255] = "\0";
+	char *buffer = char_dim1_malloc(255);
 	node_t *tree = NULL;
 
 	check_existence();
-	if (get_input(buffer))
+	if (!buffer || get_input(&buffer))
 		return (1);
 	tree = parse_command(my_char1d_to_char2d(buffer, ";"), *envp);
-	print_tree(tree);
 	if (!tree || execute_commands(tree, (int [2]){0, 1}, envp, 1))
 		return (0);
 	return (0);

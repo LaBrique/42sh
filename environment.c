@@ -54,7 +54,7 @@ char	*get_full_path(char **paths, char *bin_name)
 
 void	cut_buffer(char *buffer)
 {
-	for (int i = 0; i != 255; i++) {
+	for (int i = 0; i < my_strlen(buffer); i++) {
 		if (buffer[i] == 10)
 		buffer[i] = 0;
 	}

@@ -37,7 +37,7 @@ int	get_input_fd(node_t *tree, int old);
 int	get_output_fd(node_t *tree, int old);
 int	execute_commands(node_t *tree, int fd[2], char ***envp, int waiter);
 int	get_fd(int fd[2], int fd2[2], node_t *tree);
-int	get_input(char *buffer);
+int	get_input(char **buffer);
 void	cut_buffer(char *buffer);
 char	*get_env(char *name, char **envp);
 char	*get_env_value(char **envp, int i);
