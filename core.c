@@ -14,7 +14,7 @@ const builtin_t builtins[] = {
 	{"unsetenv", &unsetenv_sh}
 };
 
-void	get_sig_status(int *status)
+void	get_sig_status(int status)
 {
 	int sig = 0;
 
@@ -45,7 +45,7 @@ void	execute_binary(char *str, int fd[2], char **envp, int waiter)
 			close(fd[1]);
 	}
 	while (waiter && wait(&status) > 0);
-	get_sig_status(&status);
+	get_sig_status(status);
 }
 
 int	check_builtins(char *com, char ***envp)
