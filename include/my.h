@@ -32,7 +32,7 @@ int wordcounter2d(char **dim2_char);
 int *my_char2d_to_int1d(char **dim2_char);
 int wordcounter(char *string, char *breaker);
 void fill_2dchar(char *string, char *word, char *breaker, int *j);
-// char **my_char1d_to_char2d(char *string, char *breaker);
+//char **my_char1d_to_char2d(char *string, char *breaker);
 char **my_char1d_to_char2d(char *str, char *separators);
 void my_putchar(char c);
 int my_put_nbr(int nb, int *k);
@@ -59,4 +59,8 @@ char *my_strdup(char const *str);
 char	*my_realloc(char *ptr, unsigned int old_size, unsigned int new_size);
 int	my_str_isnum(char const *str);
 int	my_charstr(char ch, char *str);
+int	is_char_present(char c, char *str);
+char	*my_strdup_except(char *str, char except);
+void	remove_separators_backward(char *str, char *sep, char *oper);
+char	*remove_separators(char *str, char *sep, char *oper);
 #endif /*_MY_H_*/

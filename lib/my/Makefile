@@ -41,7 +41,8 @@ SRC	=	my_putchar.c				\
 		my_strdup.c				\
 		get_next_line.c				\
 		realloc.c				\
-		charstr.c
+		charstr.c				\
+		remove_separators.c
 
 OBJ	=	$(SRC:.c=.o)
 
