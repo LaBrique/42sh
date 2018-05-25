@@ -73,6 +73,7 @@ int	get_input(char *buffer)
 	else if (eof == 0)
 		return (1);
 	cut_buffer(buffer);
+	buffer = remove_separators(buffer, " \t", ";><|");
 	return (0);
 }
 

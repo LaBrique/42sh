@@ -18,8 +18,8 @@ int	is_char_present(char c, char *str)
 
 char	*my_strdup_except(char *str, char except)
 {
-	int len;
-	char *dup;
+	int len = 0;
+	char *dup = NULL;
 	int j = 0;
 
 	for (size_t i = 0; str[i]; i++) {
@@ -56,7 +56,7 @@ void	remove_separators_backward(char *str, char *sep, char *oper)
 
 char	*remove_separators(char *str, char *sep, char *oper)
 {
-	char *clean;
+	char *clean = NULL;
 	int sentence = 0;
 
 	for (size_t i = 0; str[i]; i++) {
