@@ -52,12 +52,15 @@ char	*get_full_path(char **paths, char *bin_name)
 	return (NULL);
 }
 
-void	cut_buffer(char *buffer)
+int	cut_buffer(char *buffer)
 {
+	if (buffer[0] == '\n')
+		return (1);
 	for (int i = 0; i < my_strlen(buffer); i++) {
 		if (buffer[i] == 10)
 		buffer[i] = 0;
 	}
+	return (0);
 }
 
 char	**get_command(char *command, char **envp)

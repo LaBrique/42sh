@@ -72,9 +72,8 @@ int	get_input(char **buffer)
 	eof = read(0, *buffer, 255);
 	if (eof == 0 && isatty(0))
 		return (my_printf("exit\n"));
-	else if (eof == 0)
-		return (1);
-	cut_buffer(*buffer);
+	else if (eof == 0 || cut_buffer(*buffer))
+		return (0);
 	*buffer = remove_separators(*buffer, " \t", ";><|");
 	return (0);
 }
