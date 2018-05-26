@@ -26,6 +26,7 @@ typedef struct builtin_s {
 } builtin_t;
 
 #define D_P "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+#define BUILTIN_NB 5
 #define PWD getcwd(NULL, 255)
 
 short	get_opt(char *str);
@@ -57,10 +58,12 @@ char	**envp_remove(char *name, char **envp);
 char	**unsetenv_sh(char **arg, char **envp);
 char	**envp_append(char *name, char *value, char **envp);
 char	**setenv_sh(char **arg, char **envp);
-int	check_builtins(char *com, char ***envp);
+int	check_builtins(char *com, int fd[2], char ***envp);
 void	check_existence(void);
 int	shell_prompt(char ***envp);
 void	int_ign(int sig);
+char	**echo_sh(char **argv, char **envp);
+void	get_sig_status(int status);
 int	main(int argc, char **argv, char **envp);
 
 #endif /*_MYSH_H_*/

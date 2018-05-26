@@ -19,7 +19,8 @@ SRCS	=	main.c			\
 		set_environment.c	\
 		unset_environment.c	\
 		parser.c		\
-		command.c
+		command.c		\
+		miscellaneous_bis.c
 
 OBJS	= $(SRCS:.c=.o)
 

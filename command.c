@@ -72,8 +72,7 @@ int	execute_commands(node_t *tree, int fd[2], char ***envp, int waiter)
 		return (1);
 	waiter = tree->opt == 2 ? 0 : waiter;
 	if (tree->str) {
-		if (check_builtins(tree->str, envp));
-		else
+		if (!check_builtins(tree->str, fd, envp))
 			execute_binary(tree->str, fd, *envp, waiter);
 	}
 	if (get_fd(fd, fd2, tree))

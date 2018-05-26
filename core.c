@@ -11,21 +11,9 @@ const builtin_t builtins[] = {
 	{"exit", &exit_sh},
 	{"cd", &cd},
 	{"setenv", &setenv_sh},
-	{"unsetenv", &unsetenv_sh}
+	{"unsetenv", &unsetenv_sh},
+	{"echo", &exit_sh}
 };
-
-void	get_sig_status(int status)
-{
-	int sig = 0;
-
-	if (WIFSIGNALED(status)) {
-		if (WTERMSIG(status) == SIGSEGV)
-			sig = my_printf("Segmentation fault");
-		if (WTERMSIG(status) == SIGFPE)
-			sig = my_printf("Floating exception");
-		my_printf((WCOREDUMP(status) && sig != 0) ? " (core dumped)\n" : "\n");
-	}
-}
 
 void	execute_binary(char *str, int fd[2], char **envp, int waiter)
 {
@@ -44,23 +32,30 @@ void	execute_binary(char *str, int fd[2], char **envp, int waiter)
 		if (fd[1] > 2)
 			close(fd[1]);
 	}
+	free_2d(argv, argcounter(argv));
 	while (waiter && wait(&status) > 0);
 	get_sig_status(status);
 }
 
-int	check_builtins(char *com, char ***envp)
+int	check_builtins(char *com, int fd[2], char ***envp)
 {
 	char **command = my_char1d_to_char2d(com, " \t");
+	int success = 0;
+	int save_stdin = dup(STDIN_FILENO);
+	int save_stdout = dup(STDOUT_FILENO);
 
-	for (int i = 0; i < 4; i++) {
+	dup2(fd[0], 0);
+	dup2(fd[1], 1);
+	for (int i = 0; i < BUILTIN_NB; i++) {
 		if (my_strcmp(*command, builtins[i].str)) {
 			*envp = (*builtins[i].ptr)(command, *envp);
-			free_2d(command, argcounter(command));
-			return (1);
+			success = 1;
 		}
 	}
 	free_2d(command, argcounter(command));
-	return (0);
+	dup2(save_stdin, 0);
+	dup2(save_stdout, 1);
+	return (success);
 }
 
 int	get_input(char **buffer)
