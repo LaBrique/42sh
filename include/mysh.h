@@ -64,6 +64,7 @@ int	shell_prompt(char ***envp);
 void	int_ign(int sig);
 char	**echo_sh(char **argv, char **envp);
 void	get_sig_status(int status);
+void	segv_ign(int sig);
 int	main(int argc, char **argv, char **envp);
 
 #endif /*_MYSH_H_*/

@@ -28,7 +28,7 @@ node_t	*create_node(char *str)
 	char **blocks = my_char1d_to_char2d(str, "|<>");
 
 	new->opt = get_opt(str);
-	new->str = new->opt == -1 ? *blocks : NULL;
+	new->str = new->opt == -1 && blocks ? *blocks : NULL;
 	if (new->opt == -1) {
 		new->left = NULL;
 		new->right = NULL;
