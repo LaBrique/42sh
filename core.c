@@ -21,6 +21,7 @@ void	execute_binary(char *str, int fd[2], char **envp, int waiter)
 	int status;
 	char **argv = get_command(str, envp);
 
+	printf("here?\n");
 	if (!argv)
 		return;
 	if (!fork()) {
@@ -42,20 +43,22 @@ int	check_builtins(char *com, int fd[2], char ***envp)
 {
 	char **command = my_char1d_to_char2d(com, " \t");
 	int success = 0;
-	int save_stdin = dup(STDIN_FILENO);
-	int save_stdout = dup(STDOUT_FILENO);
+	int save_stdin = 0;
+	int save_stdout = 0;
 
-	dup2(fd[0], 0);
-	dup2(fd[1], 1);
 	for (int i = 0; i < BUILTIN_NB; i++) {
 		if (my_strcmp(*command, builtins[i].str)) {
+			save_stdin = dup(STDIN_FILENO);
+			save_stdout = dup(STDOUT_FILENO);
+			dup2(fd[0], 0);
+			dup2(fd[1], 1);
 			*envp = (*builtins[i].ptr)(command, *envp);
 			success = 1;
+			dup2(save_stdin, 0);
+			dup2(save_stdout, 1);
 		}
 	}
 	free_2d(command, argcounter(command));
-	dup2(save_stdin, 0);
-	dup2(save_stdout, 1);
 	return (success);
 }
 
@@ -79,7 +82,6 @@ int	shell_prompt(char ***envp)
 	char *buffer = char_dim1_malloc(255);
 	node_t *tree = NULL;
 
-	check_existence();
 	if (!buffer || get_input(&buffer))
 		return (1);
 	tree = parse_command(my_char1d_to_char2d(buffer, ";"), *envp);

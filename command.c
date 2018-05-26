@@ -67,6 +67,7 @@ int	get_fd(int fd[2], int fd2[2], node_t *tree)
 int	execute_commands(node_t *tree, int fd[2], char ***envp, int waiter)
 {
 	int fd2[2];
+	int success = 0;
 
 	if (!tree)
 		return (1);
@@ -78,10 +79,8 @@ int	execute_commands(node_t *tree, int fd[2], char ***envp, int waiter)
 	if (get_fd(fd, fd2, tree))
 		return (1);
 	if (tree->left)
-		if (execute_commands(tree->left, fd, envp, waiter))
-			return (1);
+		success = execute_commands(tree->left, fd, envp, waiter);
 	if (tree->right && tree->opt < 3)
-		if (execute_commands(tree->right, fd2, envp, 1))
-			return (1);
-	return (0);
+		success = execute_commands(tree->right, fd2, envp, 1);
+	return (success);
 }

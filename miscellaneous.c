@@ -57,15 +57,6 @@ char	**exit_sh(char **arg, char **envp)
 	exit(my_getnbr(arg[1]));
 }
 
-void	check_existence(void)
-{
-	char wd[255] = "\0";
-
-	getcwd(wd, 255);
-	if (wd[0] == 0)
-		chdir("..");
-}
-
 void	int_ign(int sig)
 {
 	(void)sig;
