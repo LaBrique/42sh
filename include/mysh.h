@@ -52,7 +52,7 @@ void	append_history(char **history, int *i);
 void	special_cd_sh(char *path, char **envp);
 char	**cd(char **path, char **envp);
 char	**exit_sh(char **arg, char **envp);
-char	**env_sh(char **envp);
+char	**env_sh(char **argv, char **envp);
 int	get_env_position(char *name, char **envp);
 char	**envp_remove(char *name, char **envp);
 char	**unsetenv_sh(char **arg, char **envp);

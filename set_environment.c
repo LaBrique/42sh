@@ -7,8 +7,10 @@
 
 #include "mysh.h"
 
-char	**env_sh(char **envp)
+char	**env_sh(char **argv, char **envp)
 {
+	// if (argv)
+		// nyeh();
 	for (int i = 0; envp[i]; i++)
 		my_printf("%s\n", envp[i]);
 	return (envp);
@@ -47,7 +49,7 @@ int	setenv_error(char **argv, int argc)
 		my_printf("setenv: Too many arguments.\n");
 		return (3);
 	}
-	if ((argv[0][0] < 'A' || argv[0][0] > 'Z') 
+	if ((argv[0][0] < 'A' || argv[0][0] > 'Z')
 	&& (argv[0][0] < 'a' || argv[0][0] > 'z')) {
 		my_printf("setenv: Variable name must begin with a letter.\n");
 		return (1);
@@ -64,7 +66,7 @@ char	**setenv_sh(char **argv, char **envp)
 	int argc = argcounter(++argv);
 
 	if (argc == 0 || (argc == 1 && (argv[0][0] == 0 || argv[0][0] == ' ')))
-		return (env_sh(envp));
+		return (env_sh(NULL, envp));
 	if (setenv_error (argv, argc) != 0)
 		return (envp);
 	if (!get_env(argv[0], envp))

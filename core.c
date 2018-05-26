@@ -12,7 +12,8 @@ const builtin_t builtins[] = {
 	{"cd", &cd},
 	{"setenv", &setenv_sh},
 	{"unsetenv", &unsetenv_sh},
-	{"echo", &exit_sh}
+	{"echo", &exit_sh},
+	{"env", &env_sh}
 };
 
 void	execute_binary(char *str, int fd[2], char **envp, int waiter)
