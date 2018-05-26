@@ -33,9 +33,8 @@ int	verif_alpha_num(char **argv)
 	int i = 1;
 
 	while (argv[0][i] != '\0') {
-		if (my_str_isalpha(argv[0]) != 1
-		 || my_str_isnum(argv[0]) != 1)
-				return (i);
+		if (!my_str_isalpha(argv[0]) && !my_str_isnum(argv[0]))
+			return (i);
 		i++;
 	}
 	return (0);
@@ -65,7 +64,7 @@ char	**setenv_sh(char **argv, char **envp)
 
 	if (argc == 0 || (argc == 1 && (argv[0][0] == 0 || argv[0][0] == ' ')))
 		return (env_sh(NULL, envp));
-	if (setenv_error (argv, argc) != 0)
+	if (setenv_error(argv, argc))
 		return (envp);
 	if (!get_env(argv[0], envp))
 		return (envp_append(argv[0], argv[1], envp));

@@ -21,7 +21,6 @@ void	execute_binary(char *str, int fd[2], char **envp, int waiter)
 	int status;
 	char **argv = get_command(str, envp);
 
-	printf("here?\n");
 	if (!argv)
 		return;
 	if (!fork()) {
@@ -84,6 +83,8 @@ int	shell_prompt(char ***envp)
 
 	if (!buffer || get_input(&buffer))
 		return (1);
+	if (!buffer[0] || buffer[0] == 10)
+		return (0);
 	tree = parse_command(my_char1d_to_char2d(buffer, ";"), *envp);
 	if (!tree || execute_commands(tree, (int [2]){0, 1}, envp, 1))
 		return (0);
