@@ -33,10 +33,8 @@ int	verif_alpha_num(char **argv)
 	int i = 1;
 
 	while (argv[0][i] != '\0') {
-		if ((argv[0][i] < '0' || argv[0][i] > '9')
-		 && (argv[0][i] < 'A' || argv[0][i] > 'Z')
-		  && (argv[0][i] < 'a' || argv[0][i] > 'z')
-		   && argv[0][i] != ' ' )
+		if (my_str_isalpha(argv[0]) != 1
+		 || my_str_isnum(argv[0]) != 1)
 				return (i);
 		i++;
 	}

@@ -58,6 +58,7 @@ char *my_itoa(int nbr);
 char *my_strdup(char const *str);
 char	*my_realloc(char *ptr, unsigned int old_size, unsigned int new_size);
 int	my_str_isnum(char const *str);
+int	my_str_isalpha(char const *str);
 int	my_charstr(char ch, char *str);
 int	is_char_present(char c, char *str);
 char	*my_strdup_except(char *str, char except);
