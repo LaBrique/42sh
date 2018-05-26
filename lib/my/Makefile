@@ -18,6 +18,8 @@ SRC	=	my_putchar.c				\
 		my_strcpy.c				\
 		my_strlen.c				\
 		my_strstr.c				\
+		my_str_isalpha.c			\
+		my_str_isnum.c				\
 		my_swap.c				\
 		my_strncmp.c				\
 		my_strncpy.c				\

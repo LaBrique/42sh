@@ -42,7 +42,8 @@ char	**unsetenv_sh(char **argv, char **envp)
 {
 	int argc = argcounter(++argv);
 
-	if ((argc == 1 && (argv[0][0] == 0 || argv[0][0] == ' ')) || argc == 0) {
+	if (argc == 0) {
+		my_printf("%d  %c\n", argc, argv);
 		my_printf("unsetenv: Too few arguments.\n");
 		return (envp);
 	}
