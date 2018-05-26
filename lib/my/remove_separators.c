@@ -74,6 +74,5 @@ char	*remove_separators(char *str, char *sep, char *oper)
 	}
 	remove_separators_backward(str, sep, oper);
 	clean = my_strdup_except(str, '\a');
-	my_printf("|%s|\n", clean);
 	return (clean);
 }
