@@ -16,7 +16,7 @@ short	get_opt(char *str)
 			return (str[i + 1] == '<' ? 6 : 5);
 		if (str[i] == '>')
 			return (str[i + 1] == '>' ? 4 : 3);
-	 	if (str[i] == '|')
+		if (str[i] == '|')
 			return (2);
 	}
 	return (-1);

@@ -20,8 +20,7 @@ int	get_input_fd(node_t *tree, int old)
 		return (old);
 		case 5:
 		return (open(tree->right->str, O_RDONLY));
-		case 6:
-		// return (get_double_left())
+		default:
 		break;
 	}
 	return (0);

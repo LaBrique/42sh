@@ -58,7 +58,7 @@ int	cut_buffer(char *buffer)
 		return (1);
 	for (int i = 0; i < my_strlen(buffer); i++) {
 		if (buffer[i] == 10)
-		buffer[i] = 0;
+			buffer[i] = 0;
 	}
 	return (0);
 }

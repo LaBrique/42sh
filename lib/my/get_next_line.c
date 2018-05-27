@@ -21,7 +21,7 @@ char	*should_skip(char *buffer)
 		free(skip);
 		return (NULL);
 	}
-	while(skip && buffer[i++] != 10 && i != READ_SIZE);
+	while (skip && buffer[i++] != 10 && i != READ_SIZE);
 	if (skip && i != READ_SIZE) {
 		for (int j = 0; j != i; j++)
 			skip[j] = buffer[j];

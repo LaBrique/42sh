@@ -56,7 +56,7 @@ void free_3d(void *tab, int dim2, int dim3);
 void free_4d(void *tab, int dim2, int dim3, int dim4);
 char *my_itoa(int nbr);
 char *my_strdup(char const *str);
-char	*my_realloc(char *ptr, unsigned int old_size, unsigned int new_size);
+char	*my_realloc(char *, unsigned int old_size, unsigned int new_size);
 int	my_str_isnum(char const *str);
 int	my_str_isalpha(char const *str);
 int	my_charstr(char ch, char *str);
