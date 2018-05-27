@@ -50,6 +50,7 @@ char	**cd(char **path, char **envp)
 		return (envp);
 	}
 	path[1] = check_tilde(path[1]);
+	path[2] = NULL;
 	if ((path[1][0] == '~' || path[1][0] == '-') && path[1][1] == 0) {
 		special_cd_sh(path[1], envp);
 		return (setenv_sh(my_char1d_to_char2d(my_strcat("setenv OLDPWD "

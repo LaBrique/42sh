@@ -18,7 +18,7 @@ const builtin_t builtins[] = {
 
 void	execute_binary(char *str, int fd[2], char **envp, int waiter)
 {
-	int status;
+	int status = 0;
 	char **argv = get_command(str, envp);
 
 	if (!argv)
@@ -71,7 +71,7 @@ int	get_input(char **buffer)
 	if (eof == 0 && isatty(0))
 		return (my_printf("exit\n"));
 	else if (eof == 0 || cut_buffer(*buffer))
-		return (0);
+		return (1);
 	*buffer = remove_separators(*buffer, " \t", ";><|");
 	return (0);
 }
