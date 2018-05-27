@@ -7,9 +7,10 @@
 
 #include "mysh.h"
 
-const builtin_t builtins[] = {
+const builtin_t builtins[] =
+{
 	{"exit", &exit_sh},
-	{"cd", &cd},
+	{"cd", &cd_sh},
 	{"setenv", &setenv_sh},
 	{"unsetenv", &unsetenv_sh},
 	{"echo", &exit_sh},
@@ -83,7 +84,8 @@ int	shell_prompt(char ***envp)
 
 	if (!buffer || get_input(&buffer))
 		return (1);
-	if (!buffer[0] || buffer[0] == 10)
+	if (!buffer[0] || buffer[0] == 10/* || my_charstr('(', buffer)
+	|| my_charstr(')', buffer)*/)
 		return (0);
 	tree = parse_command(my_char1d_to_char2d(buffer, ";"), *envp);
 	if (!tree || execute_commands(tree, (int [2]){0, 1}, envp, 1))

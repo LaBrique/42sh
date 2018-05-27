@@ -38,16 +38,16 @@ int	verif_alpha_num(char **argv)
 int	setenv_error(char **argv, int argc)
 {
 	if (argc > 2) {
-		my_printf("setenv: Too many arguments.\n");
+		my_printf(SET_ARG);
 		return (3);
 	}
 	if ((argv[0][0] < 'A' || argv[0][0] > 'Z')
 	&& (argv[0][0] < 'a' || argv[0][0] > 'z')) {
-		my_printf("setenv: Variable name must begin with a letter.\n");
+		my_printf(SET_LETTER);
 		return (1);
 	}
 	if (!my_str_isalpha(argv[0]) && !my_str_isnum(argv[0])) {
-		my_printf("setenv: Variable name must contain alphanumeric characters.\n");
+		my_printf(SET_ANUM);
 		return (2);
 	}
 	return (0);

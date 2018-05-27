@@ -21,6 +21,8 @@ char	*get_env(char *name, char **envp)
 {
 	char *var_name = char_dim1_malloc(0);
 
+	if (!var_name)
+		return (NULL);
 	for (int i = 0; envp[i]; i++) {
 		for (int j = 0; envp[i][j] != '='; j++) {
 			var_name = my_realloc(var_name, j + 1, j + 2);
@@ -38,6 +40,8 @@ char	*get_full_path(char **paths, char *bin_name)
 	char *path = char_dim1_malloc(1024);
 	char *binary = char_dim1_malloc(my_strlen(bin_name) + 1);
 
+	if (!path || !binary)
+		return (NULL);
 	binary[0] = '/';
 	binary[1] = 0;
 	bin_name = my_strcat(binary, bin_name, 0);
@@ -75,7 +79,7 @@ char	**get_command(char *command, char **envp)
 	paths = my_char1d_to_char2d(path, ":");
 	bin_argv = my_char1d_to_char2d(command, " \t");
 	bin_path = get_full_path(paths, bin_argv[0]);
-	if (bin_path == NULL)
+	if (!bin_path || !bin_argv || !paths)
 		return (NULL);
 	bin_argv[0] = bin_path;
 	return (bin_argv);

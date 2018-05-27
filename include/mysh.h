@@ -26,6 +26,9 @@ typedef struct builtin_s {
 } builtin_t;
 
 #define D_P "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+#define SET_ARG "setenv: Too many arguments.\n"
+#define SET_LETTER "setenv: Variable name must begin with a letter.\n"
+#define SET_ANUM "setenv: Variable name must contain alphanumeric characters.\n"
 #define BUILTIN_NB 5
 #define PWD getcwd(NULL, 255)
 
@@ -49,8 +52,8 @@ void	execute_binary(char *str, int fd[2], char **envp, int waiter);
 char	*get_prompt(void);
 char	*check_tilde(char *path);
 void	append_history(char **history, int *i);
-void	special_cd_sh(char *path, char **envp);
-char	**cd(char **path, char **envp);
+void	special_cd(char *path, char **envp);
+char	**cd_sh(char **path, char **envp);
 char	**exit_sh(char **arg, char **envp);
 char	**env_sh(char **argv, char **envp);
 int	get_env_position(char *name, char **envp);
