@@ -12,7 +12,7 @@ char	**echo_sh(char **argv, char **envp)
 	int argc = argcounter(++argv);
 	int end = 0;
 
-	for (int i = 1; j < argc; j++) {
+	for (int i = 1; i < argc; i++) {
 		if (my_strcmp(argv[i], "-n"))
 			end = 1;
 		else
