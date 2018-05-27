@@ -12,13 +12,13 @@ char	**echo_sh(char **argv, char **envp)
 	int argc = argcounter(++argv);
 	int end = 0;
 
-	for (int i = 1; i < argc; i++) {
+	for (int i = 0; i < argc; i++) {
 		if (my_strcmp(argv[i], "-n"))
 			end = 1;
 		else
-			my_printf((i == 1) ? "%s" : " %s", argv[i]);
+			my_printf((i == 0) ? "%s" : " %s", argv[i]);
 	}
-	if (end)
+	if (!end)
 		my_printf("\n");
 	return (envp);
 }

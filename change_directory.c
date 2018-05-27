@@ -29,7 +29,7 @@ int	cd_errors(char *path)
 	return (0);
 }
 
-void	special_cd_sh(char *path, char **envp)
+void	special_cd(char *path, char **envp)
 {
 	char *home = get_env("HOME", envp);
 
@@ -41,7 +41,7 @@ void	special_cd_sh(char *path, char **envp)
 		chdir(home);
 }
 
-char	**cd(char **path, char **envp)
+char	**cd_sh(char **path, char **envp)
 {
 	char *current = getcwd(NULL, 255);
 
@@ -52,7 +52,7 @@ char	**cd(char **path, char **envp)
 	path[1] = check_tilde(path[1]);
 	path[2] = NULL;
 	if ((path[1][0] == '~' || path[1][0] == '-') && path[1][1] == 0) {
-		special_cd_sh(path[1], envp);
+		special_cd(path[1], envp);
 		return (setenv_sh(my_char1d_to_char2d(my_strcat("setenv OLDPWD "
 		, current, 0), " "), envp));
 	}

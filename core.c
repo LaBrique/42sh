@@ -13,7 +13,7 @@ const builtin_t builtins[] =
 	{"cd", &cd_sh},
 	{"setenv", &setenv_sh},
 	{"unsetenv", &unsetenv_sh},
-	{"echo", &exit_sh},
+	{"echo", &echo_sh},
 	{"env", &env_sh}
 };
 
