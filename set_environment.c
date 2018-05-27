@@ -9,8 +9,8 @@
 
 char	**env_sh(char **argv, char **envp)
 {
-	// if (argv)
-		// nyeh();
+	if (argv)
+		return (envp);
 	for (int i = 0; envp[i]; i++)
 		my_printf("%s\n", envp[i]);
 	return (envp);
@@ -30,13 +30,8 @@ char	**envp_append(char *name, char *value, char **envp)
 
 int	verif_alpha_num(char **argv)
 {
-	int i = 1;
-
-	while (argv[0][i] != '\0') {
-		if (!my_str_isalpha(argv[0]) && !my_str_isnum(argv[0]))
-			return (i);
-		i++;
-	}
+	if (!my_str_isalpha(argv[0]) && !my_str_isnum(argv[0]))
+		return (1);
 	return (0);
 }
 
@@ -51,7 +46,7 @@ int	setenv_error(char **argv, int argc)
 		my_printf("setenv: Variable name must begin with a letter.\n");
 		return (1);
 	}
-	if (verif_alpha_num(argv) != 0) {
+	if (!my_str_isalpha(argv[0]) && !my_str_isnum(argv[0])) {
 		my_printf("setenv: Variable name must contain alphanumeric characters.\n");
 		return (2);
 	}

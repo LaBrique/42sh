@@ -9,12 +9,11 @@
 
 int	argcounter(char **argv)
 {
-	int i = 0;
-
-	if (!argv)
-		return (0);
-	while (argv[i++]);
-	return (--i);
+	for (int i = 0; argv; i++) {
+		if (!argv[i])
+			return (i);
+	}
+	return (0);
 }
 
 char	*get_prompt(void)
